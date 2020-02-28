@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    基于注解的ioc使用案例-->
+<!--    <context:component-scan base-package="edu.csu"></context:component-scan>-->
+
+    <!--        通过注解的方式可以去掉bean.xml中的注入方式-->
+
+<!--    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
+<!--    &lt;!&ndash;注入数据源&ndash;&gt;-->
+<!--        <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 配置数据源 &ndash;&gt;-->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        &lt;!&ndash;连接数据库的必备信息&ndash;&gt;-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/db2"></property>-->
+<!--        <property name="user" value="root"></property>-->
+<!--        <property name="password" value="root"></property>-->
+<!--    </bean>-->
+<!--</beans>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--        http://www.springframework.org/schema/beans/spring-beans.xsd">-->
+<!--&lt;!&ndash;    此处为ioc配置（完全不使用注解的方式）的使用案例，实现对我们数据库中表的增删改查：&ndash;&gt;-->
+<!--&lt;!&ndash;    配置service&ndash;&gt;-->
+<!--    <bean id="accountService" class="edu.csu.service.impl.AccountServiceImpl6">-->
+<!--        &lt;!&ndash;注入dao&ndash;&gt;-->
+<!--        <property name="accountDao" ref="accountDao"></property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 配置dao对象&ndash;&gt;-->
+<!--    <bean id="accountDao" class="edu.csu.dao.impl.AccountDaoImpl3">-->
+<!--&lt;!&ndash;        注入QueryRunner&ndash;&gt;-->
+<!--        <property name="runner" ref="runner"></property>-->
+<!--    </bean>-->
+
+<!--    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
+<!--&lt;!&ndash;        注入数据源&ndash;&gt;-->
+<!--        <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; 配置数据源 &ndash;&gt;-->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        &lt;!&ndash;连接数据库的必备信息&ndash;&gt;-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/db2"></property>-->
+<!--        <property name="user" value="root"></property>-->
+<!--        <property name="password" value="root"></property>-->
+<!--    </bean>-->
+<!--</beans>-->
+
+
+
+
+
+
+
+
+
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xmlns:context="http://www.springframework.org/schema/context"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--        http://www.springframework.org/schema/beans/spring-beans.xsd-->
+<!--        http://www.springframework.org/schema/context-->
+<!--        http://www.springframework.org/schema/context/spring-context.xsd">-->
+
+<!--    &lt;!&ndash;    告知spring在创建容器时要扫描的包，配置所需要的标签不是在beans的约束中，-->
+<!--           而是一个名称为context名称空间和约束中&ndash;&gt;-->
+<!--&lt;!&ndash;    会扫描“edu.csu”包下面的所有子包&ndash;&gt;-->
+<!--    <context:component-scan base-package="edu.csu"></context:component-scan>-->
+<!--</beans>-->
+
+<!--以下内容为未使用注解时的操作方式-->
+<!--&lt;!&ndash;<?xml version="1.0" encoding="UTF-8"?>&ndash;&gt;-->
+<!--&lt;!&ndash;<beans xmlns="http://www.springframework.org/schema/beans"&ndash;&gt;-->
+<!--&lt;!&ndash;       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&ndash;&gt;-->
+<!--&lt;!&ndash;       xsi:schemaLocation="http://www.springframework.org/schema/beans&ndash;&gt;-->
+<!--&lt;!&ndash;        http://www.springframework.org/schema/beans/spring-beans.xsd">&ndash;&gt;-->
+<!--    &lt;!&ndash;把对象的创建交给spring来管理&ndash;&gt;-->
+<!--&lt;!&ndash;    spring对bean的管理细节-->
+<!--        1.创建bean的三种方式-->
+<!--        2.bean对象的作用范围-->
+<!--        3.bean对象的生命周期&ndash;&gt;-->
+
+<!--&lt;!&ndash;    创建bean的三种方式&ndash;&gt;-->
+<!--&lt;!&ndash;    第一种方式：使用默认构造函数创建-->
+<!--        在spring的配置文件中使用bean标签，配以id和class属性之后，且没有其他的属性和标签-->
+<!--        采用的就是默认构造函数创建对象，此时如果类中没有默认构造函数，则对象无法创建。&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="accountService" class="edu.csu.service.impl.AccountServiceImpl"></bean>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    如果我们的类是在一个jar包中，而生成我们需要的对象靠的是类中的方法，这个时候应该怎样创建对象呢-->
+<!--        第二种方式，使用普通工厂中的方法创建对象(使用某个类的方法创建对象，并存入spring容器中)-->
+<!--        <bean id="instanceFactory" class="edu.csu.beanfactory.InstanceFactory"></bean>-->
+<!--       <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;    第三种方式，使用工厂中的静态方法创建对象，(使用某个类的静态方法创建对象，并存入spring容器中管理)&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean name="accountService" class="edu.csu.beanfactory.StaticFactory" factory-method="getAccountService"></bean>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <bean id="accountDao" class="edu.csu.dao.impl.AccountDaoImpl"></bean>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    bean的作用范围调整-->
+<!--        bean标签的scope属性，-->
+<!--            作用：用于指定bean的作用范围(默认是单例模式)-->
+<!--            取值：-->
+<!--                singleton:单例模式-->
+<!--                prototype:多例模式-->
+<!--                request：用于web应用的请求范围-->
+<!--                session：作用于web应用的会话范围-->
+<!--                global-session：作用于集群环境的会话范围(全局会话范围)，当不是集群环境时，他就是session;&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="accountService" class="edu.csu.service.impl.AccountServiceImpl2" scope="singleton"></bean>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    bean对象的生命周期：-->
+<!--            单例对象-->
+<!--                出生：当容器创建时对象出生-->
+<!--                活着：只要容器存在，对象一直活着-->
+<!--                死亡：容器销毁，对象死亡-->
+<!--                总结：单例对象的生命周期和容器的相同-->
+<!--            多例对象-->
+<!--                出生：当我们使用对象时，spring框架为我们创建-->
+<!--                或者：对象只要是在使用过程中，就一直活着-->
+<!--                死亡：当对象长时间不用，且没有别的对象引用时，由java的垃圾回收机制进行回收-->
+
+<!--    &ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="accountService" class="edu.csu.service.impl.AccountServiceImpl2" &ndash;&gt;-->
+<!--&lt;!&ndash;          scope="singleton" init-method="init" destroy-method="destroy"></bean>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    spring中的依赖注入-->
+<!--        依赖注入-->
+<!--            Dependency Injection-->
+<!--        IOC的作用-->
+<!--            降低程序间的耦合度（依赖关系）-->
+<!--        依赖关系的管理-->
+<!--            以后都交由spring来维护-->
+<!--        若当前类需要用到其他类的对象时，由spring为我们提供，我们只需要在配置文件中说明-->
+<!--        依赖关系的维护就称之为依赖注入。-->
+<!--        依赖注入：-->
+<!--            能注入的数据：-->
+<!--                基本类型和String-->
+<!--                其他bean类型（在配置文件中或者注解配置过的bean）-->
+<!--                复杂类型和集合类型-->
+<!--            注入的方式-->
+<!--                第一种，使用构造函数注入-->
+<!--                第二种，使用set方法提供-->
+<!--                第三种，使用注解提供&ndash;&gt;-->
+
+<!--&lt;!&ndash;            方式一：构造函数的注入：-->
+<!--            使用的标签：constructor-arg-->
+<!--            标签出现的位置：bean标签的内部-->
+<!--            标签中的属性-->
+<!--                type:用于指定要注入的数据的数据类型，该类型也是改造函数中某个或某些参数的类型-->
+<!--                index:用于指定要注入的数据结构构造函数中指定索引位置的参数赋值，索引的位置是从0开始-->
+<!--                name:用于指定给构造函数中指定名称的参数赋值-->
+<!--                ===================以上三个中最常用的是name================-->
+<!--                value:用于提供基本类型和String类型的数据-->
+<!--                ref:用于指定其他的bean类型数据，它指定的就是在spring的IOC核心容器中出现过的对象-->
+
+<!--            优势：-->
+<!--                在创建bean对象时，注入数据是必须的操作，否则对象无法创建成功-->
+<!--            劣势：-->
+<!--                改变了bean对象的实例化方式，是我们在创建对象时如果用不到这些数据，也必须提供-->
+<!--                所以在实际开发中，除非是避无可避，否则不会使用这种构造方式-->
+<!--&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <bean id="accountService" class="edu.csu.service.impl.AccountServiceImpl3">&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg name="name" value="test"></constructor-arg>&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg name="age" value="18"></constructor-arg>&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg name="birthday" ref="now"></constructor-arg>&ndash;&gt;-->
+<!--&lt;!&ndash;    </bean>&ndash;&gt;-->
+<!--&lt;!&ndash;    配置一个日期对象&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="now" class="java.util.Date"></bean>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;-->
+<!--            方式二：set方法注入         相比构造函数注入更加常用-->
+<!--            涉及的标签：property-->
+<!--            出现的位置：bean标签的内部-->
+<!--            标签的属性：-->
+<!--                name:用于指定注入时所用的set方法名称-->
+<!--                value:用于提供基本类型和String类型的数据-->
+<!--                ref:用于指定其他的bean类型数据，它指的是在spring的ioc容器中出现过的其他对象-->
+<!--           优势：-->
+<!--                创建对象时没有明确的限制，可以直接使用默认构造函数-->
+<!--           劣势：-->
+<!--                如果由某个成员必须有值，则获取对象时有可能set方法并没有执行-->
+<!--    &ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="accountService" class="edu.csu.service.impl.AccountServiceImpl3">&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="name" value="test"></property>&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="age" value="23"></property>&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="birthday" ref="now"></property>&ndash;&gt;-->
+<!--&lt;!&ndash;    </bean>&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="now" class="java.util.Date"></bean>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;    <bean id="accountService" class="edu.csu.service.impl.AccountServiceImpl4">&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="myStr">&ndash;&gt;-->
+<!--&lt;!&ndash;        <array>&ndash;&gt;-->
+<!--&lt;!&ndash;            <value>aa</value>&ndash;&gt;-->
+<!--&lt;!&ndash;            <value>bb</value>&ndash;&gt;-->
+<!--&lt;!&ndash;            <value>cc</value>&ndash;&gt;-->
+<!--&lt;!&ndash;            </array>&ndash;&gt;-->
+<!--&lt;!&ndash;        </property>&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="myList">&ndash;&gt;-->
+<!--&lt;!&ndash;            <list>&ndash;&gt;-->
+<!--&lt;!&ndash;                <value>aa</value>&ndash;&gt;-->
+<!--&lt;!&ndash;                <value>bb</value>&ndash;&gt;-->
+<!--&lt;!&ndash;                <value>cc</value>&ndash;&gt;-->
+<!--&lt;!&ndash;            </list>&ndash;&gt;-->
+<!--&lt;!&ndash;        </property>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <property name="mySet">&ndash;&gt;-->
+<!--&lt;!&ndash;            <set>&ndash;&gt;-->
+<!--&lt;!&ndash;                <value>aa</value>&ndash;&gt;-->
+<!--&lt;!&ndash;                <value>bb</value>&ndash;&gt;-->
+<!--&lt;!&ndash;                <value>cc</value>&ndash;&gt;-->
+<!--&lt;!&ndash;            </set>&ndash;&gt;-->
+<!--&lt;!&ndash;        </property>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <property name="myMap">&ndash;&gt;-->
+<!--&lt;!&ndash;            <map>&ndash;&gt;-->
+<!--&lt;!&ndash;                <entry key="testA" value="aaa"></entry>&ndash;&gt;-->
+<!--&lt;!&ndash;                <entry key="testB">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <value>bbb</value>&ndash;&gt;-->
+<!--&lt;!&ndash;                </entry>&ndash;&gt;-->
+<!--&lt;!&ndash;            </map>&ndash;&gt;-->
+<!--&lt;!&ndash;        </property>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <property name="myProps">&ndash;&gt;-->
+<!--&lt;!&ndash;            <props>&ndash;&gt;-->
+<!--&lt;!&ndash;                <prop key="testC">ccc</prop>&ndash;&gt;-->
+<!--&lt;!&ndash;                <prop key="testD">ddd</prop>&ndash;&gt;-->
+<!--&lt;!&ndash;            </props>&ndash;&gt;-->
+<!--&lt;!&ndash;        </property>&ndash;&gt;-->
+<!--&lt;!&ndash;    </bean>&ndash;&gt;-->
+<!--&lt;!&ndash;</beans>&ndash;&gt;-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
